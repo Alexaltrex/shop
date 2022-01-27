@@ -1,0 +1,14 @@
+.price {
+  padding-bottom: 10px;
+
+  .sliderWrapper {
+    padding: 30px 15px 0px;
+  }
+
+  .inputWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+  }
+
+}

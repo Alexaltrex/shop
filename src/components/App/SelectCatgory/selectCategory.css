@@ -1,0 +1,13 @@
+.cubeAnimation {
+    animation: rotateAnimation 20s infinite linear;
+}
+
+@keyframes rotateAnimation {
+    from {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+
+    to {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}

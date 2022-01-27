@@ -1,0 +1,51 @@
+.productCard {
+  border-radius: 10px;
+  padding: 10px;
+  background: #5a5a5a;
+  color: #FFF;
+  display: flex;
+
+  .infoBlock {
+    margin-left: 10px;
+    flex-grow: 1;
+    padding: 5px;
+
+    .infoRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
+
+      .rateWrapper {
+        display: flex;
+        align-items: center;
+      }
+
+      .title, .price {
+        font-size: 16px;
+        color: chartreuse;
+        text-decoration: none;
+      }
+
+      .price {
+        color: chartreuse;
+      }
+
+      .available {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+
+        span:last-child {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}

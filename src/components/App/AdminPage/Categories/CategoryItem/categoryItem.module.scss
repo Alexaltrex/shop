@@ -1,0 +1,29 @@
+.categoryItem {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0px 10px;
+  border-bottom: 1px solid darkgray;
+
+  .titleBlock {
+    width: 300px;
+    display: flex;
+    align-items: flex-end;
+
+    p:first-child {
+      color: darkgray;
+      font-size: 12px;
+    }
+
+    p:last-child {
+      margin-left: 5px;
+      font-weight: bold;
+    }
+  }
+
+  .form {
+    width: 300px;
+    display: flex;
+    align-items: center;
+  }
+}

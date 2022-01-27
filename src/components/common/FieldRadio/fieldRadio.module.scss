@@ -1,0 +1,16 @@
+.fieldRadio {
+  border: 1px solid rgba(0, 0, 0, 0.23)!important;
+  border-radius: 4px!important;
+  padding: 0px 10px!important;
+
+  legend {
+    margin-left: 0px;
+    padding: 0px 5px;
+  }
+
+  .radioGroup {
+    display: flex;
+    flex-direction: row!important;
+  }
+
+}

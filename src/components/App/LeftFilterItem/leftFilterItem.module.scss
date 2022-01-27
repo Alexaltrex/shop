@@ -1,0 +1,31 @@
+.leftFilterItem {
+  margin: 0!important;
+  border-radius: 0!important;
+  background: transparent!important;
+  color: #FFF!important;
+  box-shadow: none!important;
+  border-bottom: 1px solid rgba(0,0,0,0.3)!important;
+
+  & > div:first-child {
+    min-height: 0!important;
+    transition: 0.2s;
+
+    &:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    & > div:first-child {
+      margin-top: 0!important;
+      margin-bottom: 0!important;
+      padding: 5px 0px;
+    }
+
+    svg path {
+      fill: #FFF;
+    }
+  }
+
+  .MuiPaper-root {
+    margin: 0!important;
+  }
+}

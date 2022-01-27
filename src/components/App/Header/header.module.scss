@@ -1,0 +1,42 @@
+.header {
+  height: 60px;
+  background: darkslategrey;
+  padding: 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+
+  .leftBlock {
+  display: flex;
+    align-items: center;
+
+    .logo {
+      display: block;
+
+      svg {
+        fill: #FFF !important;
+      }
+    }
+
+    .catalogButton {
+      margin-left: 20px;
+      padding: 5px 15px;
+      text-transform: none;
+
+      svg {
+        transition: 0.2s;
+      }
+
+      &_open svg {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  .rightBlock {
+    display: flex;
+    align-items: center;
+  }
+
+}

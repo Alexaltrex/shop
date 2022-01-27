@@ -1,0 +1,28 @@
+.searchForm {
+  margin-left: 25px;
+
+  form {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background: slategrey;
+    border-radius: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    transition: 0.2s;
+    min-width: 250px;
+
+    &:hover {
+      background: #FFF;
+    }
+
+    .field {
+      width: 100%;
+      border: none;
+      background: transparent;
+      &:focus-visible {
+        outline: none;
+      }
+    }
+  }
+}

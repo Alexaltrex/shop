@@ -1,0 +1,25 @@
+.sortingPanel {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .text {
+    color: darkgray;
+    font-size: 14px;
+  }
+
+  .button {
+    margin-left: 20px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+
+    &_active {
+      color: crimson;
+    }
+  }
+
+}

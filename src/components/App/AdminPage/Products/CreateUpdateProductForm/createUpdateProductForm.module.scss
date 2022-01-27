@@ -1,0 +1,16 @@
+.createUpdateProductForm {
+  display: flex;
+  flex-direction: column;
+
+  .field {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttons {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+}

@@ -1,0 +1,67 @@
+.productRating {
+  padding: 15px;
+
+  .ratingInfo {
+    display: flex;
+
+
+    .leftBlock {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .rate {
+        font-size: 60px;
+        font-weight: bold;
+      }
+    }
+
+    .rightBlock {
+      flex-grow: 1;
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: space-between;
+
+      .item {
+        display: flex;
+        align-items: center;
+
+        .key {
+          width: 20px;
+        }
+
+        .line {
+          flex-grow: 1;
+          display: flex;
+          height: 4px;
+          border-radius: 2px;
+          background: #dedede;
+
+          .innerLine {
+            border-radius: 2px;
+            height: 100%;
+            background: darkorchid;
+          }
+        }
+
+        .procent {
+          width: 40px;
+          text-align: end;
+        }
+
+
+      }
+
+    }
+  }
+
+  .makeRateBlock {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+}
