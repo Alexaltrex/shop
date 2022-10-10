@@ -1,7 +1,7 @@
 # shop
-*Demo: https://alexaltrex.github.io/shop
-*Api: "https://alexaltrex-common-api.herokuapp.com/shop" 
-*Api (source code): https://github.com/Alexaltrex/alexaltrex-common-api/blob/main/README.md
+* Demo: https://alexaltrex.github.io/shop
+* Api: "https://alexaltrex-common-api.herokuapp.com/shop" 
+* Api (source code): https://github.com/Alexaltrex/alexaltrex-common-api/blob/main/README.md
 
 <div style="display:flex;">
   <img src="https://user-images.githubusercontent.com/56224288/157691188-f5cb1d83-17f6-404d-9073-08b93d6e38f9.jpg" height="200">
