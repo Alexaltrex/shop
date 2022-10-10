@@ -1,6 +1,6 @@
 # shop
 * Demo: https://alexaltrex.github.io/shop
-* Api: "https://alexaltrex-common-api.herokuapp.com/shop" 
+* Api: https://alexaltrex-common-api.herokuapp.com/shop 
 * Api (source code): https://github.com/Alexaltrex/alexaltrex-common-api/blob/main/README.md
 
 <div style="display:flex;">
