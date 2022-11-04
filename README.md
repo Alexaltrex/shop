@@ -1,18 +1,26 @@
 # shop
-Ссылка: https://alexaltrex.github.io/shop
+* Demo: https://alexaltrex.github.io/shop
+* Api: https://alexaltrex-common-api.herokuapp.com/shop 
+* Api (source code): https://github.com/Alexaltrex/alexaltrex-common-api/
+
+<div style="display:flex;">
+  <img src="https://user-images.githubusercontent.com/56224288/157691188-f5cb1d83-17f6-404d-9073-08b93d6e38f9.jpg" height="200">
+  <img src="https://user-images.githubusercontent.com/56224288/157691192-41c9df25-09ac-4344-ae72-6dfc63919446.jpg" height="200">
+  <img src="https://user-images.githubusercontent.com/56224288/157691576-33b8cd29-d808-46aa-aa37-9b988c60ad12.jpg" height="200">
+</div> 
 
 ## Описание
-Интернет магазин с админ-пенелью для редактирования товаров
-Учетные данные для пользователя: email: alex@mail.ru, password: 12345
-Учетные данные для админа: email: admin@mail.ru, password: admin
+* Интернет магазин с админ-пенелью для редактирования товаров
+* Учетные данные для пользователя: email: alex@mail.ru, password: 12345
+* Учетные данные для админа: email: admin@mail.ru, password: admin
 
 ## Запуск проекта:
 Для установки и запуска необходимы установленные программы: Node.js, npm, Git;
-1. Клонирование и запуск: git clone https://github.com/Alexaltrex/shop.git;
-2. Переход в директорию с проектом: cd shop;
-3. Установка зависимостей: npm install;
-4. Запуск проекта в режиме разработки: npm start;
-5. Перейти в браузер и открыть страницу: http://localhost:3000 или http://localhost:3000/shop.
+* Клонирование и запуск: git clone https://github.com/Alexaltrex/shop.git;
+* Переход в директорию с проектом: cd shop;
+* Установка зависимостей: npm install;
+* Запуск проекта в режиме разработки: npm start;
+* Перейти в браузер и открыть страницу: http://localhost:3000 или http://localhost:3000/shop.
 
 ## Разработка 
 Full-stack-приложение.
@@ -31,7 +39,7 @@ Full-stack-приложение.
 * back-end api: https://alexaltrex-common-api.herokuapp.com/shop
 
 ## Структура приложения
-* Header: ссылка накаталог, форма поиска товаров, ссылка на админ-панель, авторизация, управление профилем (смена пароля и nickname)
+* Header: ссылка на каталог, форма поиска товаров, выбор языка, ссылка на админ-панель, авторизация, управление профилем (смена пароля и nickname)
 * Домашняя страница: выбор категории товара
 * Страница с товарами категории: фильтры поиска, фильтры сортировки, карточки товаров с пагинацией
 * Страница поиска товаров: фильтры поиска, фильтры сортировки, карточки товаров с пагинацией
