@@ -1,4 +1,5 @@
 import {instance, IResponse} from "./api";
+import {authHeader} from "./authHeader";
 
 export const authAPI = {
     // регистрация
@@ -11,16 +12,38 @@ export const authAPI = {
         const response = await instance.post<IResponse<LoginDataType>>('auth/login', {email, password});
         return response.data;
     },
-    // поставить рейтинг товару
-    async rating(productId: string, rating: number) {
-        const response = await instance.post<IResponse>('auth/rating', {productId, rating});
+    // изменение пароля
+    async changePassword(oldPassword: string, newPassword: string) {
+        const response = await instance.post<IResponse<LoginDataType>>(
+            'auth/password',
+            {oldPassword, newPassword},
+            {headers: authHeader()},
+        );
         return response.data;
-    }
+    },
+    // получить nickName
+    async getNickName() {
+        const response = await instance.get<IResponse<string>>(
+            'auth/nickname',
+            {headers: authHeader()},
+        );
+        return response.data;
+    },
+    // изменить nickName
+    async changeNickName(nickName: string) {
+        const response = await instance.put<IResponse<IResponse>>(
+            'auth/nickname',
+            {nickName},
+            {headers: authHeader()},
+        );
+        return response.data;
+    },
 };
 
 export type LoginDataType = {
     token: string
     login: string
     userId: string
+    email: string
     role: 'user' | 'admin'
 }

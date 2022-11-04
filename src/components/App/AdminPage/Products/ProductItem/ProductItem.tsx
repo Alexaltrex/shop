@@ -1,25 +1,15 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useState} from "react";
 import {IProduct} from "../../../../../types/types";
 import style from './productItem.module.scss';
 import {Button} from "@mui/material";
-import {Form, Formik, FormikErrors, FormikHelpers, FormikProps} from "formik";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
-import SendIcon from '@mui/icons-material/Send';
 import {
-    getBrands,
-    getCategories,
     getProductsByCategoryId,
-    selectBrands
 } from "../../../../../store/reducers/category.reducer";
-import {FieldRadio, IRadioOption} from "../../../../common/FieldRadio/FieldRadio";
-import {FieldText} from "../../../../common/FieldText/FieldText";
-import {FieldSelect, IMenuItem} from "../../../../common/FieldSelect/FieldSelect";
-import {FieldsetCustom} from "../../../../common/FieldsetCustom/FieldsetCustom";
-import InputAdornment from "@mui/material/InputAdornment";
-import {FieldColors} from "../../../../common/FieldColors/FieldColors";
+
 import {IProductUpdateRequest, productAPI} from "../../../../../api/product.api";
 import {CreateUpdateProductForm} from "../CreateUpdateProductForm/CreateUpdateProductForm";
 

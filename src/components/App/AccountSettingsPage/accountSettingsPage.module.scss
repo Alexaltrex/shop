@@ -1,0 +1,41 @@
+.accountSettingsPage {
+  min-height: calc(100vh - 60px);
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+
+  .leftBlock {
+    width: 200px;
+    flex-shrink: 0;
+    border-right: 1px solid #CCC;
+
+    .userInfo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .login {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .email {
+        color: #777;
+      }
+    }
+
+    .tabs {
+      margin-top: 40px;
+    }
+
+  }
+
+  .rightBlock {
+    flex-grow: 1;
+    padding: 20px;
+  }
+
+}

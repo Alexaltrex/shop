@@ -31,7 +31,7 @@ export const LeftFilterItem: FC<ILeftFilterItem> = ({title, content}) => {
                 id="panel1bh-header"
                 sx={{padding: '0 10px'}}
             >
-                <Typography>
+                <Typography sx={{ color: "lime"}}>
                     {title}
                 </Typography>
             </AccordionSummary>

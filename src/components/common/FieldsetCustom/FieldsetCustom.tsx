@@ -1,4 +1,3 @@
-import style from "../FieldRadio/fieldRadio.module.scss";
 import FormLabel from "@mui/material/FormLabel";
 import {FormControl, FormControlProps} from "@mui/material";
 import React, {FC} from "react";

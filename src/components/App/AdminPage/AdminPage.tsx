@@ -4,24 +4,28 @@ import {Typography} from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {TabPanel} from "./TabPanel/TabPanel";
+import {TabPanel} from "../../common/TabPanel/TabPanel";
 import {Categories} from "./Categories/Categories";
 import {Products} from "./Products/Products";
 import {getUserInfo} from "../../../localStorage/localStorage";
 import {Navigate} from "react-router-dom";
-
-const tabs = [
-    { label: 'Categories', content: <Categories/>},
-    { label: 'Products', content: <Products/>},
-];
-
+import {useSelector} from "react-redux";
+import {selectLang} from "../../../store/reducers/app.reducer";
+import {translate} from "../../../types/lang";
 
 export const AdminPage = () => {
-    const [currentIndex, setСurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(0);
     const onChangeHandler = (event: React.SyntheticEvent, newValue: number) => {
-        setСurrentIndex(newValue);
+        setCurrentIndex(newValue);
     };
     const userInfo = getUserInfo();
+    const lang = useSelector(selectLang);
+
+    const tabs = [
+        { label: translate("Categories", lang), content: <Categories/>},
+        { label: translate("Products", lang), content: <Products/>},
+    ];
+
     if (!userInfo || (userInfo && userInfo.role !== 'admin')) {
         return <Navigate to="/login"/>
     }

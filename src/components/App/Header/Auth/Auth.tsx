@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import React from "react";
+import React, {useEffect} from "react";
 import {getUserInfo, removeUserInfo} from "../../../../localStorage/localStorage";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,6 +14,10 @@ import ListItemText from "@mui/material/ListItemText";
 import green from "@mui/material/colors/green";
 import red from "@mui/material/colors/red";
 import {useNavigate} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
+import {getNickName, selectNickName} from "../../../../store/reducers/auth.reducer";
+import {translate} from "../../../../types/lang";
+import {selectLang} from "../../../../store/reducers/app.reducer";
 
 const sxListItemIcon = {minWidth: 0, marginRight: "10px"};
 
@@ -45,8 +49,16 @@ export const Auth = () => {
     };
 
     const onSettingHandler = () => {
-
+        navigate('/account-settings');
+        setAnchorEl(null);
     };
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getNickName());
+    }, []);
+    const nickName = useSelector(selectNickName);
+    const lang = useSelector(selectLang);
 
     return (
         <div>
@@ -60,7 +72,7 @@ export const Auth = () => {
                 {
                     userInfo &&
                     <Typography color='common.white'>
-                        {userInfo.login}
+                        { nickName ? nickName : userInfo.login}
                     </Typography>
                 }
             </Button>
@@ -86,7 +98,7 @@ export const Auth = () => {
                             <ListItemIcon sx={sxListItemIcon}>
                                 <ExitToAppIcon sx={{color: green[500]}}/>
                             </ListItemIcon>
-                            <ListItemText primary='Login'/>
+                            <ListItemText primary={translate("Login", lang)}/>
                         </ListItem>
                     }
 
@@ -98,7 +110,7 @@ export const Auth = () => {
                             <ListItemIcon sx={sxListItemIcon}>
                                 <AccountCircleIcon sx={{color: green[500]}}/>
                             </ListItemIcon>
-                            <ListItemText primary='Registration'/>
+                            <ListItemText primary={translate("Registration", lang)}/>
                         </ListItem>
                     }
 
@@ -107,11 +119,10 @@ export const Auth = () => {
                         <ListItem onClick={onSettingHandler}
                                   button
                         >
-
                             <ListItemIcon sx={sxListItemIcon}>
                                 <ManageAccountsIcon/>
                             </ListItemIcon>
-                            <ListItemText primary='Account settings'/>
+                            <ListItemText primary={translate("Account settings", lang)}/>
                         </ListItem>
                     }
 
@@ -120,11 +131,10 @@ export const Auth = () => {
                         <ListItem onClick={onLogoutHandler}
                                   button
                         >
-
                             <ListItemIcon sx={sxListItemIcon}>
                                 <ExitToAppIcon sx={{ color: red[500] }}/>
                             </ListItemIcon>
-                            <ListItemText primary='Logout'/>
+                            <ListItemText primary={translate("Logout", lang)}/>
                         </ListItem>
                     }
                 </List>

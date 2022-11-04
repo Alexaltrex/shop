@@ -49,14 +49,12 @@ export const CategoryList = () => {
                                 >
                                     <CategoryIcon/>
                                     <p>{category.title}</p>
-
                                 </Link>
                             ))
                         }
                     </div>
                 )
             }
-
         </div>
     )
 };

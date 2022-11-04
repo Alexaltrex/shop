@@ -4,7 +4,6 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import {useField} from "formik";
-import style from "./fieldRadio.module.scss"
 import {FieldsetCustom} from "../FieldsetCustom/FieldsetCustom";
 
 export interface IRadioOption {
@@ -34,7 +33,6 @@ export const FieldRadio: FC<IFieldRadio> = ({
             <RadioGroup name={field.name}
                         value={field.value}
                         onChange={field.onChange}
-                        //className={style.radioGroup}
                         sx={{ flexDirection: "row"}}
             >
                 {

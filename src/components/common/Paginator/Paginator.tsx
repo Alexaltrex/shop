@@ -25,6 +25,24 @@ export const Paginator: FC<IPaginator> = ({pageCount}) => {
                             onChange={onChangeHandler}
                             page={currentPage}
                             style={{marginTop: 10}}
+                            sx={{
+                                "& .MuiButtonBase-root": {
+                                    transition: "0.3s",
+                                    "&:hover": {
+                                        backgroundColor: "#999999!important",
+                                        border: "1px solid #999999!important",
+                                        color: "#FFF!important",
+                                    }
+                                },
+                                "& .Mui-selected": {
+                                    backgroundColor: "#777777!important",
+                                    color: "#FFF!important",
+                                    border: "1px solid #777777!important",
+                                    "&:hover": {
+                                        backgroundColor: "#777!important",
+                                    }
+                                }
+                            }}
                 />
             }
         </>

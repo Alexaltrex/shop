@@ -1,7 +1,7 @@
 .header {
   height: 60px;
   background: darkslategrey;
-  padding: 0px 20px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,6 +37,33 @@
   .rightBlock {
     display: flex;
     align-items: center;
+
+    .version {
+      color: white;
+      font-weight: lighter;
+      font-size: 10px;
+      margin-right: 20px;
+    }
+
+
+    .basketWrapper {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+
+      &:hover p {
+        color: orange;
+      }
+
+      .title {
+        text-decoration: none;
+        color: #CCC;
+        margin-left: 10px;
+        transition: 0.3s;
+      }
+    }
+
   }
 
 }

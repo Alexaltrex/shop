@@ -1,7 +1,6 @@
 import {instance, IResponse} from "./api";
 import {IFilterParams, IMinMaxPrice, IProduct} from "../types/types";
 import {authHeader} from "./authHeader";
-import {IProductUpdate} from "../components/App/AdminPage/Products/ProductItem/ProductItem";
 
 interface IGetProducts {
     products: IProduct[]
@@ -75,6 +74,16 @@ export const productAPI = {
             }
         });
         const response = await instance.get<IResponse<IGetProducts>>(url);
+        return response.data;
+    },
+    // оставить отзыв для товара
+    async reviewProduct(productId: string, rating: number, review: string) {
+        const response = await instance.post<IResponse>('product/review', {productId, rating, review}, {headers: authHeader()});
+        return response.data;
+    },
+    // получить список товаров, которым юзер поставил рейтинг
+    async getRatedProducts() {
+        const response = await instance.get<IResponse>('product/review', {headers: authHeader()});
         return response.data;
     }
 };

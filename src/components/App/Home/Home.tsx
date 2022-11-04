@@ -9,7 +9,6 @@ export const Home = () => {
             <CategoryList/>
             <div className={style.homeContent}>
                 <SelectCategory/>
-                {/*<p>Select category</p>*/}
             </div>
         </div>
     )

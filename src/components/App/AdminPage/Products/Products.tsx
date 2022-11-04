@@ -4,7 +4,7 @@ import {getCategories, selectCategories} from "../../../../store/reducers/catego
 import {Tabs} from "@mui/material";
 import Tab from "@mui/material/Tab";
 import style from './products.module.scss';
-import {TabPanel} from "../TabPanel/TabPanel";
+import {TabPanel} from "../../../common/TabPanel/TabPanel";
 import {ProductsOfCategory} from "./ProductsOfCategory/ProductsOfCategory";
 
 function a11yProps(index: number) {

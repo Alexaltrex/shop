@@ -1,3 +1,5 @@
+import {AlertColor} from "@mui/material";
+
 export interface IProduct {
     id: string
     title: string
@@ -13,8 +15,25 @@ export interface IProduct {
     weight: number
     colors: string[]
     brand: string
-    rating: RatingType,
+    rating: RatingType
     rate: string
+    reviews: IReview[]
+}
+
+export interface IProductBasket extends IProduct {
+    productInBasketId: string
+    selectedColor: string
+    quantityInBasket: number
+}
+
+export type IAddProductBasket = Omit<IProductBasket, "productInBasketId">
+
+export interface IReview {
+    id: string
+    rating: number
+    userName: string
+    review: string,
+    date: Date
 }
 
 export type RatingType = {
@@ -48,3 +67,15 @@ export interface IFilterParams {
     priceMin: null | string
     priceMax: null | string
 }
+
+export interface IRatedProducts {
+    [key: string]: string
+}
+
+export interface IInfoPopup {
+    show: boolean
+    text: string
+    type: AlertColor
+}
+
+export type LangType = 'ENG' | 'RUS';

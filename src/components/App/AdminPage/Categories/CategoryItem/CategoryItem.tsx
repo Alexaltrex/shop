@@ -3,7 +3,7 @@ import {ICategory} from "../../../../../types/types";
 import style from './categoryItem.module.scss';
 import {Button, TextField} from "@mui/material";
 import {FormikErrors, FormikHelpers, useFormik} from "formik";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import styled from "@mui/material/styles/styled";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -11,6 +11,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import SendIcon from '@mui/icons-material/Send';
 import {categoryAPI} from "../../../../../api/category.api";
 import {getCategories} from "../../../../../store/reducers/category.reducer";
+import {selectLang} from "../../../../../store/reducers/app.reducer";
+import {translate} from "../../../../../types/lang";
 
 const StyledTextField = styled(TextField)({
     '& .MuiOutlinedInput-input': {
@@ -69,13 +71,13 @@ export const CategoryItem: FC<ICategoryItem> = ({category}) => {
     });
     const onDeleteHandler = async () => {
         try {
-           await categoryAPI.delete(category.id);
-           dispatch(getCategories());
+            await categoryAPI.delete(category.id);
+            dispatch(getCategories());
         } catch (e) {
 
         }
     };
-
+    const lang = useSelector(selectLang);
 
     return (
         <div className={style.categoryItem}>
@@ -88,7 +90,7 @@ export const CategoryItem: FC<ICategoryItem> = ({category}) => {
                                              id="title"
                                              size="small"
                                              autoComplete="off"
-                                             placeholder="Category title"
+                                             placeholder={translate("Category title", lang)}
                                              value={formik.values.title}
                                              onChange={formik.handleChange}
                                              onBlur={formik.handleBlur}
@@ -102,13 +104,13 @@ export const CategoryItem: FC<ICategoryItem> = ({category}) => {
                                     style={{marginLeft: "10px", textTransform: 'none'}}
                                     startIcon={<SendIcon/>}
                             >
-                                Submit
+                                {translate("Submit", lang)}
                             </Button>
                         </form>
                     )
                     : (
                         <div className={style.titleBlock}>
-                            <p>title:</p>
+                            <p>{`${translate("title", lang)}:`}</p>
                             <p>{category.title}</p>
                         </div>
                     )
@@ -121,7 +123,7 @@ export const CategoryItem: FC<ICategoryItem> = ({category}) => {
                     onClick={onRenameHandler}
                     startIcon={showForm ? <ClearIcon/> : <EditIcon/>}
             >
-                {showForm ? 'Close' : 'Rename'}
+                {showForm ? translate("Cancel", lang) : translate("Rename", lang)}
             </Button>
 
             <Button variant="outlined"
@@ -131,7 +133,7 @@ export const CategoryItem: FC<ICategoryItem> = ({category}) => {
                     startIcon={<DeleteForeverIcon/>}
                     onClick={onDeleteHandler}
             >
-                Delete
+                {translate("Delete", lang)}
             </Button>
         </div>
     )

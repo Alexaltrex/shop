@@ -1,20 +1,9 @@
 .productPage {
-  height: 100%;
+  min-height: calc(100vh - 60px);
   padding: 10px;
+  box-sizing: border-box;
   position: relative;
   overflow: hidden;
-
-  .categoryListWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: 0.2s;
-    transform: translateY(-100%);
-
-    &_show {
-      transform: translateY(0%);
-    }
-  }
 
   .link {
     text-decoration: none;
@@ -52,11 +41,11 @@
 
       }
 
-      .rating {
-        border: 2px solid #999;
-        border-radius: 10px;
-        margin-top: 20px;
+      .tabs {
+        margin-top: 10px;
       }
+
+
     }
   }
 }

@@ -3,10 +3,14 @@ import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {categoryReducer} from "./reducers/category.reducer";
 import {appReducer} from "./reducers/app.reducer";
+import {basketReducer} from "./reducers/busket.reducer";
+import {authReducer} from "./reducers/auth.reducer";
 
 const rootReducer = combineReducers({
     category: categoryReducer,
+    basket: basketReducer,
     app: appReducer,
+    auth: authReducer,
 });
 
 const middleware: Array<Middleware> = [thunkMiddleware];

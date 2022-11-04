@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import style from './searchForm.module.scss';
-import {Field, Form, Formik, FormikHelpers, FormikProps} from "formik";
+import {Field, Form, Formik, FormikHelpers, FormikProps, useFormik} from "formik";
 import SearchIcon from '@mui/icons-material/Search';
 import {IconButton} from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {categoryAC} from "../../../../store/reducers/category.reducer";
 import {useDispatch} from "react-redux";
 import {appAC} from "../../../../store/reducers/app.reducer";
@@ -14,6 +14,10 @@ interface IValues {
 }
 
 export const SearchForm = () => {
+    const minMaxPrice = localStorage.getItem("minMaxPrice")
+        ? JSON.parse(localStorage.getItem("minMaxPrice") as string)
+        : null;
+
     const initialValues: IValues = {
         query: ''
     };
@@ -21,6 +25,7 @@ export const SearchForm = () => {
     let navigate = useNavigate();
 
     const dispatch = useDispatch();
+
     const onSubmitHandler = (
         values: IValues,
         formikHelpers: FormikHelpers<IValues>
@@ -37,34 +42,42 @@ export const SearchForm = () => {
             brands: [],
             colors: [],
             page: '1',
-            priceMin: null,
-            priceMax: null,
+            priceMin: minMaxPrice && String(minMaxPrice.priceMin),
+            priceMax: minMaxPrice && String(minMaxPrice.priceMax),
         }));
-
+        dispatch(categoryAC.setPriceMinLocal(minMaxPrice ? String(minMaxPrice.priceMin) : "1"))
+        dispatch(categoryAC.setPriceMaxLocal(minMaxPrice ? String(minMaxPrice.priceMax) : "100"))
         dispatch(appAC.setCatalogOpen(false));
     };
 
+    const formik = useFormik({
+        initialValues,
+        onSubmit: onSubmitHandler
+    });
+
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname !== "/products/search") {
+            formik.resetForm()
+        }
+    }, [location.pathname])
+
     return (
         <div className={style.searchForm}>
-            <Formik initialValues={initialValues}
-                    onSubmit={onSubmitHandler}
-            >
-                {
-                    (formik: FormikProps<IValues>) => (
-                        <Form>
-                            <IconButton onClick={() => formik.resetForm()}>
-                                <ClearIcon/>
-                            </IconButton>
-                            <Field name='query' type='text' className={style.field} autoComplete="off"/>
-                            <IconButton type="submit">
-                                <SearchIcon/>
-                            </IconButton>
-                        </Form>
-                    )
-
-                }
-
-            </Formik>
+            <form onSubmit={formik.handleSubmit}>
+                <IconButton onClick={() => formik.resetForm()}>
+                    <ClearIcon/>
+                </IconButton>
+                <input type="text"
+                       className={style.field}
+                       autoComplete="off"
+                       {...formik.getFieldProps("query")}
+                />
+                <IconButton type="submit">
+                    <SearchIcon/>
+                </IconButton>
+            </form>
         </div>
     )
 }

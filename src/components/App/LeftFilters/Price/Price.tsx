@@ -58,7 +58,8 @@ export const Price = () => {
                 dispatch(categoryAC.setFilterParams({
                     ...filterParams,
                     priceMin: String(minMaxPrice.priceMin),
-                    priceMax: String(minMaxPrice.priceMax)
+                    priceMax: String(minMaxPrice.priceMax),
+                    page: "1",
                 }));
                 dispatch(categoryAC.setPriceMinLocal(minMaxPrice.priceMin));
                 dispatch(categoryAC.setPriceMaxLocal(minMaxPrice.priceMax));
@@ -75,7 +76,8 @@ export const Price = () => {
             dispatch(categoryAC.setFilterParams({
                 ...filterParams,
                 priceMin: priceMinLocal as string,
-                priceMax: priceMaxLocal as string
+                priceMax: priceMaxLocal as string,
+                page: "1",
             }));
         }
     }, [isChanging]);
@@ -91,15 +93,6 @@ export const Price = () => {
 
     const inputEndChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(categoryAC.setPriceMaxLocal(event.target.value === '' ? '' : Number(event.target.value)));
-    };
-
-    const handleBlur = () => {
-        // const max = minMaxPrice?.priceMax || 100;
-        // if (priceMin < 0) {
-        //     setPriceMin(0);
-        // } else if (priceMin > max) {
-        //     setPriceMin(max);
-        // }
     };
 
     const onMouseDownHandler = (e: any) => setIsChanging(true);
@@ -133,7 +126,6 @@ export const Price = () => {
                             value={priceMinLocal}
                             size="small"
                             onChange={inputStartChangeHandler}
-                            onBlur={handleBlur}
                             onMouseDown={onMouseDownHandler}
                             onMouseUp={onMouseUpHandler}
                             inputProps={{
@@ -152,7 +144,6 @@ export const Price = () => {
                             value={priceMaxLocal}
                             size="small"
                             onChange={inputEndChangeHandler}
-                            onBlur={handleBlur}
                             onMouseDown={onMouseDownHandler}
                             onMouseUp={onMouseUpHandler}
                             inputProps={{

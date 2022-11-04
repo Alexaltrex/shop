@@ -1,7 +1,7 @@
 import {LoginDataType} from "../api/auth.api";
 
-export const setUserInfo = ({userId, login, token, role}: LoginDataType) => {
-    localStorage.setItem('userInfo', JSON.stringify({userId, login, token, role}));
+export const setUserInfo = ({userId, login, token, role, email}: LoginDataType) => {
+    localStorage.setItem('userInfo', JSON.stringify({userId, login, token, role, email}));
 };
 export const getUserInfo = (): null | LoginDataType => {
     const userInfo = localStorage.getItem('userInfo');
@@ -19,6 +19,7 @@ export const removeUserInfo = () => {
 export const setToken = (token: string) => {
     localStorage.setItem('token', token);
 };
+
 export const getToken: GetTokenType = () => {
     const token = localStorage.getItem('token');
     if (token) {

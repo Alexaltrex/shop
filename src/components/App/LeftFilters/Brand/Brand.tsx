@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {categoryAC, getBrands, selectBrands, selectFilterParams} from "../../../../store/reducers/category.reducer";
 import {FormControl, Select, SelectChangeEvent, Theme} from "@mui/material";
@@ -33,25 +33,33 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 export const Brand = () => {
     const brandsList = useSelector(selectBrands);
     const filterParams = useSelector(selectFilterParams);
-    const brands = filterParams.brands;
+    const brandsGlobal = filterParams.brands;
+
+    const [brandsLocal, setBrandsLocal] = useState(filterParams.brands);
 
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getBrands());
     }, []);
 
-    const onChangeHandler = (event: SelectChangeEvent<typeof brands>) => {
-        const {
-            target: {value},
-        } = event;
+    useEffect(() => {
         dispatch(categoryAC.setFilterParams({
             ...filterParams,
-            brands: typeof value === 'string' ? value.split(',') : value
+            brands: brandsLocal,
+            page: "1",
         }));
+    }, [brandsLocal])
+
+    const onChangeHandler = (event: SelectChangeEvent<typeof brandsGlobal>) => {
+        const value = event.target.value;
+        setBrandsLocal(typeof value === 'string' ? value.split(',') : value);
     };
+
+    const onResetHandler = () => setBrandsLocal([]);
+
     const theme = useTheme();
 
-    const onResetHandler = () => dispatch(categoryAC.setFilterParams({...filterParams, brands: []}));
     return (
         <div className={style.brand}>
             <ResetButton onResetHandler={onResetHandler}/>
@@ -61,17 +69,10 @@ export const Brand = () => {
                     <FormControl sx={{width: '100%'}}>
                         <div className={style.chips}>
                             {
-                                brands.map(brand => (
+                                brandsGlobal.map(brand => (
                                         <Chip key={brand}
                                               label={brand}
-                                              onDelete={
-                                                  () => dispatch(
-                                                      categoryAC.setFilterParams({
-                                                          ...filterParams,
-                                                          brands: [...brands].filter(el => el !== brand)
-                                                      })
-                                                  )
-                                              }
+                                              onDelete={() => setBrandsLocal([...brandsLocal].filter(el => el !== brand))}
                                               sx={{
                                                   background: '#FFF',
                                                   marginBottom: '5px',
@@ -90,7 +91,7 @@ export const Brand = () => {
                             multiple
                             size='small'
                             placeholder="Select brand"
-                            value={brands}
+                            value={brandsGlobal}
                             onChange={onChangeHandler}
                             input={
                                 <OutlinedInput id="select-multiple-chip"
@@ -108,7 +109,7 @@ export const Brand = () => {
                                                        border: '2px solid orange',
                                                    },
                                                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                       border: '2px solid white',
+                                                       border: '2px solid orange',
                                                    },
                                                }}
                                 />
@@ -122,9 +123,9 @@ export const Brand = () => {
                                 <MenuItem
                                     key={brand}
                                     value={brand}
-                                    style={getStyles(brand, brands, theme)}
+                                    style={getStyles(brand, brandsGlobal, theme)}
                                 >
-                                    <Checkbox checked={brands.indexOf(brand) > -1}/>
+                                    <Checkbox checked={brandsGlobal.indexOf(brand) > -1}/>
                                     <ListItemText primary={brand}/>
                                 </MenuItem>
                             ))}

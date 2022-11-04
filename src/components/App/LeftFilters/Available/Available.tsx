@@ -6,6 +6,12 @@ import FormControl from '@mui/material/FormControl';
 import {useDispatch, useSelector} from "react-redux";
 import {categoryAC, selectFilterParams} from "../../../../store/reducers/category.reducer";
 import {ResetButton} from "../../../common/ResetButton/ResetButton";
+import {selectLang} from "../../../../store/reducers/app.reducer";
+import {translate} from "../../../../types/lang";
+
+// 1 - изменение в ui => изменение локальной переменной
+// 2 - изменение локальной переменной переменной => изменение глобальной переменной (+ сброс page)
+// 3 - значение в ui - значение глобальной переменной (позволяет делать сброс извне)
 
 export const Available = () => {
     const dispatch = useDispatch();
@@ -21,17 +27,28 @@ export const Available = () => {
         },
     };
 
+    const lang = useSelector(selectLang);
     const labels = [
-        {value: 'all', label: 'All'},
-        {value: 'true', label: 'Yes'},
-        {value: 'false', label: 'No'},
+        {value: translate("all", lang), label: 'All'},
+        {value: translate("true", lang), label: 'Yes'},
+        {value: translate("false", lang), label: 'No'},
     ];
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
-        dispatch(categoryAC.setFilterParams({...filterParams, available: value}));
+        dispatch(categoryAC.setFilterParams({
+            ...filterParams,
+            available: value,
+            page: "1",
+        }));
     };
 
-    const onResetHandler = () => dispatch(categoryAC.setFilterParams({...filterParams, available: 'all'}));
+    const onResetHandler = () => {
+        dispatch(categoryAC.setFilterParams({
+            ...filterParams,
+            available: "all",
+            page: "1",
+        }));
+    };
 
     return (
         <div>
@@ -48,12 +65,7 @@ export const Available = () => {
                         labels.map(el => (
                             <FormControlLabel key={el.value}
                                               value={el.value}
-                                              control={
-                                                  <Radio
-                                                      //size='small'
-                                                      sx={sxRadio}
-                                                  />
-                                              }
+                                              control={ <Radio sx={sxRadio} /> }
                                               label={el.label}
                             />
                         ))
@@ -61,6 +73,5 @@ export const Available = () => {
                 </RadioGroup>
             </FormControl>
         </div>
-
     )
 };

@@ -21,7 +21,7 @@ export const Categories = () => {
     return (
         <div className={style.categories}>
             {
-                categories &&
+                !categoriesLoading && categories &&
                 <div className={style.list}>
                     {
                         categories.map(category => <CategoryItem key={category.id} category={category}/>)

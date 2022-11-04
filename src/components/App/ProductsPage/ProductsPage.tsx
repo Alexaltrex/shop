@@ -1,11 +1,8 @@
 import React, {useEffect} from "react";
 import style from './productsPage.module.scss';
-import {CategoryList} from "../CategoryList/CategoryList";
 import {LeftFilters} from "../LeftFilters/LeftFilters";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCatalogOpen} from "../../../store/reducers/app.reducer";
-import clsx from "clsx";
-import {Outlet, useSearchParams} from "react-router-dom";
+import {Outlet, useLocation, useSearchParams} from "react-router-dom";
 import {
     categoryAC, getProducts,
     selectFilterParams,
@@ -19,13 +16,18 @@ import Skeleton from "@mui/material/Skeleton";
 import {serializeSearchParams} from "../../../helpers/helpers";
 import {SortingPanel} from "../SortingPanel/SortingPanel";
 import {SortType} from "../../../types/types";
+import {CategoryListWrapper} from "../CategoryList/CategoryListWrapper";
+import {selectLang} from "../../../store/reducers/app.reducer";
+import {translate} from "../../../types/lang";
 
 export const ProductsPage = () => {
-    const catalogOpen = useSelector(selectCatalogOpen);
     const products = useSelector(selectProducts);
     const isLoading = useSelector(selectIsLoading);
     const pageCount = useSelector(selectPageCount);
     const filterParams = useSelector(selectFilterParams);
+
+    let location = useLocation();
+    const productsPageType = location.pathname === '/products/search' ? 'search' : 'category';
 
     const minMaxPrice = localStorage.getItem("minMaxPrice")
         ? JSON.parse(localStorage.getItem("minMaxPrice") as string)
@@ -34,7 +36,6 @@ export const ProductsPage = () => {
     let [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
 
-    // при перезагрузке считываем фильтры из url и записываем в store
     useEffect(() => {
         const nextFilterParams = {...filterParams};
 
@@ -62,6 +63,8 @@ export const ProductsPage = () => {
 
         if (categoryId) {
             nextFilterParams.categoryId = categoryId;
+        } else {
+            nextFilterParams.categoryId = null;
         }
 
         if (page) {
@@ -98,6 +101,12 @@ export const ProductsPage = () => {
     useEffect(() => {
         const nextSearchParams = {...serializeSearchParams(searchParams)};
 
+        if (filterParams.categoryId) {
+            nextSearchParams.categoryId = filterParams.categoryId;
+        } else {
+            delete nextSearchParams.categoryId
+        }
+
         if (filterParams.sort !== 'default') {
             nextSearchParams.sort = filterParams.sort;
         } else {
@@ -130,10 +139,8 @@ export const ProductsPage = () => {
 
         if (minMaxPrice && filterParams.priceMin && Number(filterParams.priceMin) !== Number(minMaxPrice!.priceMin)) {
             nextSearchParams.priceMin = filterParams.priceMin as string;
-            console.log('test 1')
         }
         if (minMaxPrice && filterParams.priceMin && Number(filterParams.priceMin) === Number(minMaxPrice!.priceMin)) {
-            console.log('test 2')
             delete nextSearchParams.priceMin;
         }
 
@@ -156,16 +163,15 @@ export const ProductsPage = () => {
 
     }, [filterParams]);
 
+    const lang = useSelector(selectLang);
+
     return (
         <div className={style.productsPage}>
-            <div className={clsx({
-                [style.categoryListWrapper]: true,
-                [style.categoryListWrapper_show]: catalogOpen,
-            })}>
-                <CategoryList/>
-            </div>
 
-            <LeftFilters/>
+            <CategoryListWrapper/>
+
+            <LeftFilters type={productsPageType}/>
+
             <div className={style.content}>
                 <SortingPanel/>
 
@@ -183,7 +189,7 @@ export const ProductsPage = () => {
                                 }
                             </div>
                         )
-                        : <NotFoundResult/>
+                        : <NotFoundResult text={translate("Nothing found for the selected query parameters", lang)}/>
 
                         : <div className={style.preloader}>
                             {

@@ -6,11 +6,15 @@ import Button from "@mui/material/Button";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import {useDispatch, useSelector} from "react-redux";
-import {appAC, selectCatalogOpen} from "../../../store/reducers/app.reducer";
+import {appAC, selectCatalogOpen, selectLang} from "../../../store/reducers/app.reducer";
 import clsx from "clsx";
 import {SearchForm} from "./SearchForm/SearchForm";
 import {Auth} from "./Auth/Auth";
 import {getUserInfo} from "../../../localStorage/localStorage";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import green from "@mui/material/colors/green";
+import {LangSwitcher} from "./LangSwitcher/LangSwitcher";
+import {translate} from "../../../types/lang";
 
 const sxAdminButton = {
     color: 'rgba(255,255,255,0.6)',
@@ -22,7 +26,6 @@ const sxAdminButton = {
         color: 'white'
     },
 };
-
 
 export const Header = () => {
     const {pathname} = useLocation();
@@ -36,6 +39,7 @@ export const Header = () => {
     const onAdminHandler = () => {
         navigate('admin');
     };
+    const lang = useSelector(selectLang);
 
     return (
         <header className={style.header}>
@@ -52,14 +56,32 @@ export const Header = () => {
                             })}
                             endIcon={<ArrowUpwardIcon fontSize='small'/>}
                             onClick={onCatalogButtonHandler}
+                            sx={{width: 110}}
                     >
-                        Catalog
+                        {translate("Catalog", lang)}
                     </Button>
                 }
                 <SearchForm/>
+                <LangSwitcher/>
             </div>
 
             <div className={style.rightBlock}>
+
+                {/*<p className={style.version}>ver. 07.02.2022 22:10</p>*/}
+
+                {
+                    userInfo && userInfo.role === 'user' && (
+                        <Link className={style.basketWrapper}
+                              to='/basket'
+                        >
+                            <ShoppingCartIcon sx={{color: green[500]}}/>
+                            <p className={style.title}>
+                                {translate("Basket", lang)}
+                            </p>
+                        </Link>
+                    )
+                }
+
                 {
                     userInfo && userInfo.role === 'admin' &&
                     <Button variant="outlined"
@@ -69,9 +91,10 @@ export const Header = () => {
                             startIcon={<ModeEditIcon/>}
                             onClick={onAdminHandler}
                     >
-                        Admin panel
+                        {translate("Admin panel", lang)}
                     </Button>
                 }
+
                 <Auth/>
             </div>
 

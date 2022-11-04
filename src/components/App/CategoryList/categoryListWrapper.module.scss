@@ -1,0 +1,12 @@
+.categoryListWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.2s;
+  transform: translateY(-100%);
+  z-index: 999;
+
+  &_show {
+    transform: translateY(0%);
+  }
+}

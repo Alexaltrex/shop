@@ -1,15 +1,19 @@
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
-import React from "react";
+import React, {FC} from "react";
 import style from './notFoundResult.module.scss';
 
-export const NotFoundResult = () => {
+export interface INotFoundResult {
+    text: string
+}
+
+export const NotFoundResult: FC<INotFoundResult> = ({text}) => {
     return (
         <div className={style.notFoundResult}>
             <DoNotDisturbAltIcon sx={{
                 fontSize: 80,
                 color: 'lightgray',
             }}/>
-            <p>Nothing found for the selected query parameters</p>
+            <p>{text}</p>
         </div>
     )
 }

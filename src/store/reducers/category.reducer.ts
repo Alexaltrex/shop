@@ -1,8 +1,9 @@
 import {BaseThunkType, GetActionsType, StateType} from "../store";
-import {ICategory, IFilterParams, IMinMaxPrice, IProduct} from "../../types/types";
+import {ICategory, IFilterParams, IProduct, IRatedProducts} from "../../types/types";
 import {categoryAPI} from "../../api/category.api";
 import {productAPI} from "../../api/product.api";
 import {brandAPI} from "../../api/brand.api";
+import {authAPI} from "../../api/auth.api";
 
 //================ TYPE ==================
 export type InitialStateType = typeof initialState;
@@ -31,7 +32,8 @@ const initialState = {
         priceMax: null,
     } as IFilterParams,
     priceMinLocal: 1 as number | string | Array<number | string>, // их изменение не вызывает напрямую запрос к апи
-    priceMaxLocal: 100 as number | string | Array<number | string> // при mouseUp измениет filterParams.priceMin, изменение которого вызывает запрос к апи
+    priceMaxLocal: 100 as number | string | Array<number | string>, // при mouseUp измениет filterParams.priceMin, изменение которого вызывает запрос к апи
+    ratedProducts: null as null | IRatedProducts
 };
 
 //================ REDUCER ===================
@@ -83,6 +85,9 @@ export const categoryReducer = (state = initialState, action: CategoryActionsTyp
         case 'SHOP/CATEGORY/SET_PRICE_MAX_LOCAL': {
             return {...state, priceMaxLocal: action.priceMaxLocal}
         }
+        case 'SHOP/CATEGORY/SET_RATED_PRODUCTS': {
+            return {...state, ratedProducts: action.ratedProducts}
+        }
         default:
             return state;
     }
@@ -102,6 +107,7 @@ export const categoryAC = {
     resetFilterParams: () => ({type: 'SHOP/CATEGORY/RESET_FILTER_PARAMS'} as const),
     setPriceMinLocal: (priceMinLocal: number | string | Array<number | string>) => ({type: 'SHOP/CATEGORY/SET_PRICE_MIN_LOCAL', priceMinLocal} as const),
     setPriceMaxLocal: (priceMaxLocal: number | string | Array<number | string>) => ({type: 'SHOP/CATEGORY/SET_PRICE_MAX_LOCAL', priceMaxLocal} as const),
+    setRatedProducts: (ratedProducts: IRatedProducts) => ({type: 'SHOP/CATEGORY/SET_RATED_PRODUCTS', ratedProducts} as const),
 };
 
 //================ THUNK CREATORS ==================
@@ -184,6 +190,33 @@ export const getBrands = (): ThunkType => async (dispatch) => {
     }
 };
 
+export const getRatedProducts = (): ThunkType => async (dispatch) => {
+    try {
+        dispatch(categoryAC.setIsLoading(true));
+        const response = await productAPI.getRatedProducts();
+        dispatch(categoryAC.setRatedProducts(response.data));
+    } catch (e: any) {
+        console.error(e.message);
+        console.error(e.stack);
+    } finally {
+        dispatch(categoryAC.setIsLoading(false));
+    }
+};
+
+export const reviewProduct = (productId: string, rating: number, review: string): ThunkType => async (dispatch) => {
+    try {
+        dispatch(categoryAC.setIsLoading(true));
+        await productAPI.reviewProduct(productId, rating, review);
+        await dispatch(getRatedProducts());
+        await dispatch(getProductById(productId));
+    } catch (e: any) {
+        console.error(e.message);
+        console.error(e.stack);
+    } finally {
+        dispatch(categoryAC.setIsLoading(false));
+    }
+};
+
 //============== SELECTORS =================
 export const selectIsLoading = (state: StateType) => state.category.isLoading;
 export const selectCategoriesLoading = (state: StateType) => state.category.categoriesLoading;
@@ -196,3 +229,5 @@ export const selectBrands = (state: StateType) => state.category.brands;
 export const selectFilterParams = (state: StateType) => state.category.filterParams;
 export const selectPriceMinLocal = (state: StateType) => state.category.priceMinLocal;
 export const selectPriceMaxLocal = (state: StateType) => state.category.priceMaxLocal;
+export const selectRatedProducts = (state: StateType) => state.category.ratedProducts;
+

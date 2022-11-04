@@ -2,13 +2,14 @@ import React from "react";
 import style from './loginPage.module.scss';
 import {FormikErrors, FormikHelpers, useFormik} from "formik";
 import {Button, TextField} from "@mui/material";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Typography from "@mui/material/Typography";
 import {useNavigate} from "react-router-dom";
 import styled from "@mui/material/styles/styled";
-import {appAC} from "../../../store/reducers/app.reducer";
+import {appAC, selectLang} from "../../../store/reducers/app.reducer";
 import {authAPI} from "../../../api/auth.api";
 import {setUserInfo} from "../../../localStorage/localStorage";
+import {translate} from "../../../types/lang";
 
 export interface ILoginValues {
     email: string
@@ -32,6 +33,7 @@ export const LoginPage = () => {
 
     let navigate = useNavigate();
     const dispatch = useDispatch();
+    const lang = useSelector(selectLang);
 
     const onSubmit = async ({email, password}: ILoginValues, formikHelpers: FormikHelpers<ILoginValues>) => {
         try {
@@ -50,10 +52,10 @@ export const LoginPage = () => {
     const validate = (values: ILoginValues): FormikErrors<ILoginValues> => {
         const errors: FormikErrors<ILoginValues> = {};
         if (!values.email) {
-            errors.email = 'required'
+            errors.email = translate("required", lang)
         }
         if (!values.password) {
-            errors.password = 'required'
+            errors.password = translate("required", lang)
         }
         return errors;
     };
@@ -70,14 +72,14 @@ export const LoginPage = () => {
                   className={style.form}
             >
                 <Typography variant='h4' align='center'>
-                    Login
+                    {translate("Login", lang)}
                 </Typography>
 
                 <StyledTextField type="text"
                                  fullWidth
                                  variant="outlined"
                                  id="email"
-                                 label="email"
+                                 label={translate("email", lang)}
                                  value={formik.values.email}
                                  onChange={formik.handleChange}
                                  onBlur={formik.handleBlur}
@@ -89,7 +91,7 @@ export const LoginPage = () => {
                                  fullWidth
                                  variant="outlined"
                                  id="password"
-                                 label="Password"
+                                 label={translate("password", lang)}
                                  value={formik.values.password}
                                  onChange={formik.handleChange}
                                  onBlur={formik.handleBlur}
@@ -103,7 +105,7 @@ export const LoginPage = () => {
                         variant="contained"
                         className={style.field}
                 >
-                    Submit
+                    {translate("Submit", lang)}
                 </Button>
             </form>
 

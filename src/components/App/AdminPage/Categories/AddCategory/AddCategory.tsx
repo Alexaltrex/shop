@@ -4,11 +4,13 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import {Button, TextField} from "@mui/material";
 import styled from "@mui/material/styles/styled";
 import {FormikErrors, FormikHelpers, useFormik} from "formik";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import style from "../CategoryItem/categoryItem.module.scss";
 import SendIcon from '@mui/icons-material/Send';
 import {getCategories} from "../../../../../store/reducers/category.reducer";
 import {categoryAPI} from "../../../../../api/category.api";
+import {selectLang} from "../../../../../store/reducers/app.reducer";
+import {translate} from "../../../../../types/lang";
 
 const StyledTextField = styled(TextField)({
     '& .MuiOutlinedInput-input': {
@@ -35,10 +37,11 @@ export const AddCategory = () => {
     const initialValues: IValues = {
         title: '',
     };
+    const lang = useSelector(selectLang);
     const validate = (values: IValues): FormikErrors<IValues> => {
         const errors: FormikErrors<IValues> = {};
         if (!values.title) {
-            errors.title = 'required'
+            errors.title = translate("required", lang);
         }
         return errors;
     };
@@ -74,7 +77,7 @@ export const AddCategory = () => {
                                          id="title"
                                          size="small"
                                          autoComplete="off"
-                                         placeholder="Category title"
+                                         placeholder={translate("Category title", lang)}
                                          value={formik.values.title}
                                          onChange={formik.handleChange}
                                          onBlur={formik.handleBlur}
@@ -88,7 +91,7 @@ export const AddCategory = () => {
                                 style={{marginLeft: "10px", textTransform: 'none'}}
                                 startIcon={<SendIcon/>}
                         >
-                            Submit
+                            {translate("Submit", lang)}
                         </Button>
                     </form>
                 )
@@ -101,7 +104,7 @@ export const AddCategory = () => {
                     startIcon={showForm ? <CancelIcon/> : <AddBoxIcon/>}
                     onClick={onClickHandler}
             >
-                {showForm ? 'Cancel' : 'Add category'}
+                {showForm ? translate("Cancel", lang) : translate("Add category", lang)}
             </Button>
         </div>
     )

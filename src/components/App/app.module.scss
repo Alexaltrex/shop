@@ -1,7 +1,11 @@
 .app {
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   .main {
-    height: calc(100vh - 60px);
+    //height: calc(100vh - 60px);
+    flex-grow: 1;
+    //height: 100%;
   }
 }
